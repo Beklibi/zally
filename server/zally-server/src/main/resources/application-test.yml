@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:hsqldb:mem:storage;sql.syntax_pgs=true
     username: sa

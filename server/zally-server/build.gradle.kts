@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":zally-core"))
     implementation(project(":zally-ruleset-zalando"))
     implementation(project(":zally-ruleset-zally"))
+    implementation(project(":zally-ruleset-roedl"))
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -54,5 +55,14 @@ tasks.bootRun {
 tasks.withType<PublishToMavenRepository>().configureEach {
     onlyIf {
         false
+    }
+}
+
+tasks.jar {
+    archiveBaseName.set(project.name)
+    manifest {
+        attributes(
+            "Main-Class" to "org.zalando.zally.Application" // Setze die Main-Class auf die gefundene Klasse
+        )
     }
 }

@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: production
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:hsqldb:mem:storage;sql.syntax_pgs=true
     username: sa
@@ -12,9 +14,6 @@ spring:
       hibernate:
         jdbc:
           lob:
-            # Disable noisy detection for LOB support (Postgres doesn't support it anyway)
-            # Workaround from https://hibernate.atlassian.net/browse/HHH-12368
-            # Should be unnecessary after upgrading to Spring Boot 2.2.0
             non_contextual_creation: true
   oauth2:
     resource:
@@ -37,8 +36,10 @@ twintip:
 rules-config-path: "rules-config.conf"
 
 zally:
-  # rules to be ignored system wide by default
   ignoreRules: M008, M009, M010, M011, H001, H002, S005, S006, S007
+  rules:
+    - org.zalando.zally.ruleset.roedl.RoedlRuleSet
+    - org.zalando.zally.ruleset.zally.ZallyRuleSet
   cli:
     releasesPage: https://github.com/zalando/zally/releases
     deprecatedCliAgents: unirest-java/1.3.11,Zally-CLI/1.0

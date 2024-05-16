@@ -8,14 +8,12 @@ java {
 
 plugins {
     val kotlinVersion = "1.8.0"
-    val klintVersion = "11.0.0"
 
     // The buildscript is also kotlin, so we apply at the root level
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
 
-    // We need to declare these here since we are configuring them for
-    // subprojects from the top level.
+    // We need to declare these here since we are configuring them for subprojects from the top level.
     jacoco
     `maven-publish`
     signing
@@ -49,7 +47,7 @@ subprojects {
         includeCompileClasspath = false
     }
 
-    tasks.withType<KotlinCompile>().configureEach() {
+    tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions.jvmTarget = "17"
     }
 
@@ -197,6 +195,11 @@ subprojects {
 
     tasks.jar {
         archiveBaseName.set(project.name)
+        manifest {
+            attributes(
+                "Main-Class" to "org.zalando.zally.Application"  // Setze die Main-Class auf die gefundene Klasse
+            )
+        }
     }
 
     eclipse {

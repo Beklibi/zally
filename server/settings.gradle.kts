@@ -5,6 +5,7 @@ include(
     "zally-core",
     "zally-ruleset-zalando",
     "zally-ruleset-zally",
+	"zally-ruleset-roedl",
     "zally-test",
     "zally-server"
 )
